@@ -7,10 +7,13 @@ import Home from './Pages/home/HomePage';
 import PostsPage from './Pages/postsPage/PostsPage';
 import Header from './components/header/Header';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer position="top-center" theme="colored" />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
