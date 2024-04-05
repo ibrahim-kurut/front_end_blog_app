@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = ({ toggle, setToggle }) => {
     return (
@@ -6,18 +7,34 @@ const Navbar = ({ toggle, setToggle }) => {
             style={{ clipPath: toggle && "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
             className="navbar">
             <ul className="nav-links">
-                <li
-                    onClick={() => setToggle(!toggle)}
-                    className="nav-link">home</li>
-                <li
-                    onClick={() => setToggle(!toggle)}
-                    className="nav-link">posts</li>
-                <li
-                    onClick={() => setToggle(!toggle)}
-                    className="nav-link">create post</li>
-                <li
-                    onClick={() => setToggle(!toggle)}
-                    className="nav-link">admin</li>
+                <Link to={'/'}>
+                    <li
+                        onClick={() => setToggle(!toggle)}
+                        className="nav-link">
+                        home
+                    </li>
+                </Link>
+                <Link to={'/posts'}>
+                    <li
+                        onClick={() => setToggle(!toggle)}
+                        className="nav-link">
+                        posts
+                    </li>
+                </Link>
+                <Link to={'/posts-create-post'}>
+                    <li
+                        onClick={() => setToggle(!toggle)}
+                        className="nav-link">
+                        create post
+                    </li>
+                </Link>
+                <Link to={'/admin-dashboard'}>
+                    <li
+                        onClick={() => setToggle(!toggle)}
+                        className="nav-link">
+                        admin
+                    </li>
+                </Link>
             </ul>
         </nav>
     )
