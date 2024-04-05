@@ -1,8 +1,8 @@
 import "./sidebar.css"
 import { Link } from "react-router-dom";
-import { categories } from "../../dummyData";
 
-const Sidebar = () => {
+
+const Sidebar = ({ categories }) => {
     return (
         <div className="sidebar">
             <h5 className="sidebar-title">CATEGORIES</h5>

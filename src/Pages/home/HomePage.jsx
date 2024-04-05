@@ -2,7 +2,7 @@ import "./home.css"
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PostList from "../../components/posts/PostList"
-import { posts } from "../../dummyData"
+import { posts, categories } from "../../dummyData"
 import Sidebar from "../../components/sidebar/Sidebar"
 const HomePage = () => {
     return (
@@ -17,7 +17,7 @@ const HomePage = () => {
             <div className="home-latest-post">latest post</div>
             <div className="home-container">
                 <PostList posts={posts} />
-                <Sidebar />
+                <Sidebar categories={categories} />
 
 
             </div>
