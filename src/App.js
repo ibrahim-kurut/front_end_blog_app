@@ -9,6 +9,7 @@ import Header from './components/header/Header';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PostDetails from './Pages/post-details/PostDetails';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<PostsPage />} />
         <Route path="/posts-create-post" element={<CreatePost />} />
+        <Route path="/posts/details/:id" element={<PostDetails />} />
 
 
 
