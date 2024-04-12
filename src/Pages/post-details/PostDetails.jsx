@@ -6,6 +6,7 @@ import { toast } from "react-toastify"
 import AddComment from "../../components/comments/AddComment.jsx"
 import CommentList from "../../components/comments/CommentList.jsx"
 import swal from "sweetalert"
+import UpdatePostModal from "./UpdatePostModal.jsx"
 
 const PostDetails = () => {
 
@@ -18,6 +19,7 @@ const PostDetails = () => {
     }, [])
 
     const [file, setFile] = useState(null)
+    const [updatePostModal, setUpdatePostModal] = useState(false)
 
     // update image submit handler
     const updateImageSubmitHandler = (e) => {
@@ -101,6 +103,7 @@ const PostDetails = () => {
                 </div>
                 <div>
                     <i
+                        onClick={() => setUpdatePostModal(true)}
                         className="bi bi-pencil-square"></i>
                     <i
                         onClick={deletePostHandler}
@@ -109,7 +112,9 @@ const PostDetails = () => {
             </div>
             <AddComment />
             <CommentList />
-
+            {
+                updatePostModal && <UpdatePostModal setUpdatePostModal={setUpdatePostModal} post={post} />
+            }
         </section>
     )
 }
