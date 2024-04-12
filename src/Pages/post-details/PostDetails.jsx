@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { posts } from '../../dummyData.js'
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import AddComment from "../../components/comments/AddComment.jsx"
 
 
 const PostDetails = () => {
@@ -81,7 +82,7 @@ const PostDetails = () => {
                         className="bi bi-trash-fill"></i>
                 </div>
             </div>
-            <div>AddComment</div>
+            <AddComment />
             <div>CommentList</div>
 
         </section>
