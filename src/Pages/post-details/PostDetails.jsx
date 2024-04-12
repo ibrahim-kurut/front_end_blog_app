@@ -4,6 +4,7 @@ import { posts } from '../../dummyData.js'
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import AddComment from "../../components/comments/AddComment.jsx"
+import CommentList from "../../components/comments/CommentList.jsx"
 
 
 const PostDetails = () => {
@@ -83,7 +84,7 @@ const PostDetails = () => {
                 </div>
             </div>
             <AddComment />
-            <div>CommentList</div>
+            <CommentList />
 
         </section>
     )
