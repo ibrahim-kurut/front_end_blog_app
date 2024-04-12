@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostDetails from './Pages/post-details/PostDetails';
+import CategoryPage from './Pages/category/CategoryPage';
 
 function App() {
   return (
@@ -18,11 +19,14 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/posts" element={<PostsPage />} />
-        <Route path="/posts-create-post" element={<CreatePost />} />
-        <Route path="/posts/details/:id" element={<PostDetails />} />
 
-
+        {/* posts route group */}
+        <Route path="posts">
+          <Route index element={<PostsPage />} />
+          <Route path="create-post" element={<CreatePost />} />
+          <Route path="details/:id" element={<PostDetails />} />
+          <Route path="categories/:category" element={<CategoryPage />} />
+        </Route>
 
         <Route path="/admin-dashboard" element={<DashboardAdmin />} />
 

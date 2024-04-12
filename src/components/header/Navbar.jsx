@@ -21,7 +21,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         posts
                     </li>
                 </Link>
-                <Link to={'/posts-create-post'}>
+                <Link to={'/posts/create-post'}>
                     <li
                         onClick={() => setToggle(!toggle)}
                         className="nav-link">
