@@ -1,7 +1,9 @@
+import { useState } from "react"
 import "./comment-list.css"
 import swal from "sweetalert"
+import UpdateCommentModal from "./UpdateCommentModal"
 const CommentList = () => {
-
+    const [updateCommentModel, setUpdateCommentModel] = useState(false)
     // Delete Comment submit handler
 
     const deleteCommentHandler = () => {
@@ -48,7 +50,7 @@ const CommentList = () => {
                     </p>
                     <div className="comment-item-icon-wrapper">
                         <i
-
+                            onClick={() => setUpdateCommentModel(true)}
                             className="bi bi-pencil-square"></i>
                         <i
                             onClick={deleteCommentHandler}
@@ -57,6 +59,10 @@ const CommentList = () => {
                 </div>
 
             ))}
+
+            {
+                updateCommentModel && <UpdateCommentModal setUpdateCommentModel={setUpdateCommentModel} />
+            }
 
         </div>
     )

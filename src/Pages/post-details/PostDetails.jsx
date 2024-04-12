@@ -21,6 +21,7 @@ const PostDetails = () => {
     const [file, setFile] = useState(null)
     const [updatePostModal, setUpdatePostModal] = useState(false)
 
+
     // update image submit handler
     const updateImageSubmitHandler = (e) => {
         e.preventDefault();
