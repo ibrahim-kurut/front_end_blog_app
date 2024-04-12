@@ -1,6 +1,31 @@
 import "./comment-list.css"
-
+import swal from "sweetalert"
 const CommentList = () => {
+
+    // Delete Comment submit handler
+
+    const deleteCommentHandler = () => {
+        swal({
+            title: "Are you sure?",
+            text: "Once you delete it, you will not be able to recover this comment!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                // console.log(willDelete);
+                if (willDelete) {
+                    // delete  the Comment request here
+                    swal("Comment has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Something went wrong!");
+                }
+            });
+    }
+
+
     return (
 
         <div className="comment-list">
@@ -26,7 +51,7 @@ const CommentList = () => {
 
                             className="bi bi-pencil-square"></i>
                         <i
-
+                            onClick={deleteCommentHandler}
                             className="bi bi-trash-fill"></i>
                     </div>
                 </div>

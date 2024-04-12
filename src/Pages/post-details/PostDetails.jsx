@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import AddComment from "../../components/comments/AddComment.jsx"
 import CommentList from "../../components/comments/CommentList.jsx"
-
+import swal from "sweetalert"
 
 const PostDetails = () => {
 
@@ -28,6 +28,29 @@ const PostDetails = () => {
         } else {
             return toast.success("Your Image has been Updated Successfully")
         }
+    }
+
+    // Delete post submit handler
+
+    const deletePostHandler = () => {
+        swal({
+            title: "Are you sure?",
+            text: "Once you delete it, you will not be able to recover this post!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                // console.log(willDelete);
+                if (willDelete) {
+                    // delete  the post request here
+                    swal("Post has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Something went wrong!");
+                }
+            });
     }
 
     return (
@@ -80,6 +103,7 @@ const PostDetails = () => {
                     <i
                         className="bi bi-pencil-square"></i>
                     <i
+                        onClick={deletePostHandler}
                         className="bi bi-trash-fill"></i>
                 </div>
             </div>
