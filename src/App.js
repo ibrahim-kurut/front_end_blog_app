@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostDetails from './Pages/post-details/PostDetails';
 import CategoryPage from './Pages/category/CategoryPage';
+import ProfilePage from './Pages/profilePage/ProfilePage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         </Route>
 
         <Route path="/admin-dashboard" element={<DashboardAdmin />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
 
 
 

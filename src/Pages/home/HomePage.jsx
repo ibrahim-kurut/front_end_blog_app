@@ -11,7 +11,6 @@ const HomePage = () => {
                 <div className="home-hero-header-layout">
                     <h1 className="home-title ">
                         welcome to blog
-                        <p>#29 - Comments</p>
                     </h1>
                 </div>
             </div>
