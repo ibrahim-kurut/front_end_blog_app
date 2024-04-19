@@ -1,0 +1,25 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.icon {
+    font-size: 3em;
+}
+
+.top {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgb(240, 101, 101);
+}
+
+.link {
+    background-color: rgb(73, 151, 242);
+    padding: 5px 15px;
+    margin-top: 15px;
+    color: white;
+    border-radius: 5px;
+}
