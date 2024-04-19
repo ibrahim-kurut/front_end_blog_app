@@ -16,6 +16,8 @@ import UsersTable from './Pages/admin/UsersTable';
 import PostsTable from './Pages/admin/PostsTable';
 import CategoriesTable from './Pages/admin/CategoriesTable';
 import CommentTable from './Pages/admin/CommentTable';
+import ForgotPassword from './Pages/forms/ForgotPassword';
+// import ResetPassword from './Pages/forms/ResetPassword';
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
       </Routes>
     </BrowserRouter>
   );
