@@ -12,6 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import PostDetails from './Pages/post-details/PostDetails';
 import CategoryPage from './Pages/category/CategoryPage';
 import ProfilePage from './Pages/profilePage/ProfilePage';
+import UsersTable from './Pages/admin/UsersTable';
+import PostsTable from './Pages/admin/PostsTable';
+import CategoriesTable from './Pages/admin/CategoriesTable';
+import CommentTable from './Pages/admin/CommentTable';
 
 function App() {
   return (
@@ -28,8 +32,16 @@ function App() {
           <Route path="details/:id" element={<PostDetails />} />
           <Route path="categories/:category" element={<CategoryPage />} />
         </Route>
+        {/* admin-dashboard route group */}
+        <Route path="admin-dashboard">
+          <Route index element={<DashboardAdmin />} />
+          <Route path="users-table" element={<UsersTable />} />
+          <Route path="posts-table" element={<PostsTable />} />
+          <Route path="categories-table" element={<CategoriesTable />} />
+          <Route path="comments-table" element={<CommentTable />} />
+        </Route>
 
-        <Route path="/admin-dashboard" element={<DashboardAdmin />} />
+
         <Route path="/profile/:id" element={<ProfilePage />} />
 
 
