@@ -6,7 +6,7 @@ import RegisterPage from './Pages/forms/RegisterPage';
 import Home from './Pages/home/HomePage';
 import PostsPage from './Pages/postsPage/PostsPage';
 import Header from './components/header/Header';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostDetails from './Pages/post-details/PostDetails';
@@ -19,8 +19,14 @@ import CommentTable from './Pages/admin/CommentTable';
 import ForgotPassword from './Pages/forms/ForgotPassword';
 import NotFound from './Pages/not-found/NotFound';
 // import ResetPassword from './Pages/forms/ResetPassword';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const { user } = useSelector(state => state.auth)
+
+  console.log(user);
+
+
   return (
     <BrowserRouter>
       <ToastContainer position="top-center" theme="colored" />
@@ -31,17 +37,17 @@ function App() {
         {/* posts route group */}
         <Route path="posts">
           <Route index element={<PostsPage />} />
-          <Route path="create-post" element={<CreatePost />} />
+          <Route path="create-post" element={user ? <CreatePost /> : <Navigate to="/" />} />
           <Route path="details/:id" element={<PostDetails />} />
           <Route path="categories/:category" element={<CategoryPage />} />
         </Route>
         {/* admin-dashboard route group */}
         <Route path="admin-dashboard">
-          <Route index element={<DashboardAdmin />} />
-          <Route path="users-table" element={<UsersTable />} />
-          <Route path="posts-table" element={<PostsTable />} />
-          <Route path="categories-table" element={<CategoriesTable />} />
-          <Route path="comments-table" element={<CommentTable />} />
+          <Route index element={user?.isAdmin ? <DashboardAdmin /> : <Navigate to="/" />} />
+          <Route path="users-table" element={user?.isAdmin ? <UsersTable /> : <Navigate to="/" />} />
+          <Route path="posts-table" element={user?.isAdmin ? <PostsTable /> : <Navigate to="/" />} />
+          <Route path="categories-table" element={user?.isAdmin ? <CategoriesTable /> : <Navigate to="/" />} />
+          <Route path="comments-table" element={user?.isAdmin ? <CommentTable /> : <Navigate to="/" />} />
         </Route>
 
 
@@ -49,8 +55,8 @@ function App() {
 
 
 
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={!user ? < LoginPage /> : <Navigate to="/" />} />
+        <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/" />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
 
