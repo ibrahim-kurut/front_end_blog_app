@@ -2,6 +2,8 @@ import "./forms.css"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { useDispatch } from "react-redux"
+import { LoginUser } from "../../redux/apiCalls/authApiCall"
 
 
 
@@ -10,7 +12,7 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-
+    const dispatch = useDispatch()
 
 
     // form submit handler
@@ -26,7 +28,8 @@ const Login = () => {
         }
 
 
-        console.log({ email, password });
+        // console.log({ email, password });
+        dispatch(LoginUser({ email, password }))
 
 
 
