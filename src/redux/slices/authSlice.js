@@ -12,6 +12,10 @@ const authSlice = createSlice({
         loginHandler(state, action) {
             state.user = action.payload;
         },
+        // ============ logout ============
+        logoutHandler(state) {
+            state.user = null;
+        },
     }
 })
 const authReducer = authSlice.reducer

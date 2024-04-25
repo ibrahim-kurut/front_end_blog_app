@@ -22,3 +22,12 @@ export function LoginUser(userData) {
     }
 }
 
+// ============= logout user =============
+export function logoutUser() {
+
+    return (dispatch) => {
+        dispatch(authActions.logoutHandler())
+        localStorage.removeItem("userInfo")
+    }
+}
+
