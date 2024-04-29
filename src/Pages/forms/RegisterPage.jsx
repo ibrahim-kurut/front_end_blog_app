@@ -1,12 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./forms.css"
 import { useState } from "react"
 import { toast } from "react-toastify"
-
-// import swal from "sweetalert"
+import { useDispatch, useSelector } from "react-redux"
+import { registerUser } from "../../redux/apiCalls/authApiCall"
+import swal from "sweetalert"
 
 const Register = () => {
 
+    const dispatch = useDispatch()
+    // After the user registers, this message show
+    const { registerMessage } = useSelector(state => state.auth)
 
     const [username, setUserName] = useState("")
     const [email, setEmail] = useState("")
@@ -27,15 +31,27 @@ const Register = () => {
             return toast.error("please enter password must be not less than 6 character")
         }
         setTimeout(() => {
-            toast.success("data is submited successfully ..... ")
+            // toast.success("data is submited successfully ..... ")
             setUserName("")
             setEmail("")
             setPassword("")
         }, 1000);
-        console.log({ username, email, password });
+        // console.log({ username, email, password });
+        dispatch(registerUser({ username, email, password }))
 
     }
-
+    const navigate = useNavigate()
+    if (registerMessage) {
+        swal({
+            title: registerMessage,
+            icon: "success",
+        }).then(isOk => {
+            if (isOk) {
+                // go to login page
+                navigate("/login")
+            }
+        })
+    }
 
 
 

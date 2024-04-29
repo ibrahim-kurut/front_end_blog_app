@@ -31,3 +31,15 @@ export function logoutUser() {
     }
 }
 
+// ============= register user =============
+export function registerUser(userData) {
+    return async (dispatch) => {
+        try {
+            const res = await request.post("/api/auth/register", userData)
+            dispatch(authActions.registerUserHnadler(res.data.message))
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
+}
+

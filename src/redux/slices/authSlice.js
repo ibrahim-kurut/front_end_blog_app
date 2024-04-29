@@ -6,6 +6,8 @@ const authSlice = createSlice({
         // If the user info is in Local Storage, get it, or it returns null
         user: localStorage.getItem("userInfo") ?
             JSON.parse(localStorage.getItem("userInfo")) : null,
+
+        registerMessage: null // If the user registers, the message will be taken from the backend
     },
     reducers: {
         // ============ login ============
@@ -16,6 +18,10 @@ const authSlice = createSlice({
         logoutHandler(state) {
             state.user = null;
         },
+        // ============ register ============
+        registerUserHnadler(state, action) {
+            state.registerMessage = action.payload;
+        }
     }
 })
 const authReducer = authSlice.reducer
