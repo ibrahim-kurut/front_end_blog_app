@@ -5,7 +5,9 @@ import { posts } from "../../dummyData"
 import { toast } from "react-toastify"
 import swal from "sweetalert"
 import UpdateProfileModal from "./UpdateProfileModal"
-
+import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
+import { getUserProfile } from "../../redux/apiCalls/profileApiCall"
 
 const ProfilePage = () => {
 
@@ -13,9 +15,15 @@ const ProfilePage = () => {
     const [file, setFile] = useState(null)
     const [updateProfileModal, setUpdateProfileModal] = useState(false)
 
+    const { profile } = useSelector(state => state.profile)
+    console.log(profile);
+    const dispatch = useDispatch()
+    const { id } = useParams()
+
     useEffect(() => {
+        dispatch(getUserProfile(id))
         window.scrollTo(0, 0);
-    }, [])
+    }, [dispatch, id])
     // form submit handler
     const formSubmitHandle = (e) => {
         e.preventDefault()
@@ -49,7 +57,7 @@ const ProfilePage = () => {
         <section className="profile">
             <div className="profile-header">
                 <div className="profile-image-wrapper">
-                    <img src={file ? URL.createObjectURL(file) : "/images/user-avatar.png"} alt="" className="profile-image" />
+                    <img src={file ? URL.createObjectURL(file) : profile?.profilePhoto.url} alt="" className="profile-image" />
                     <form onSubmit={formSubmitHandle}>
                         <abbr title="choose profile photo">
                             <label
@@ -73,15 +81,15 @@ const ProfilePage = () => {
                     </form>
                 </div>
                 <h1 className="profile-username">
-                    user name
+                    {profile?.username}
                 </h1>
                 <p className="profile-bio">
-                    bio
+                    {profile?.bio}
                 </p>
                 <div className="user-date-joined">
                     <strong>Date Joined: </strong>
                     <span>
-                        {new Date().toLocaleString()}
+                        {new Date(profile?.updatedAt).toLocaleString()}
                     </span>
                 </div>
                 <button
@@ -93,7 +101,7 @@ const ProfilePage = () => {
             </div>
             <div className="profile-posts-list">
                 <h2 className="profile-posts-list-title">
-                    user name posts</h2>
+                    {profile?.username} posts</h2>
 
                 <PostList posts={posts} />
             </div>
