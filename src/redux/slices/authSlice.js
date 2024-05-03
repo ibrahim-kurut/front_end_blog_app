@@ -26,7 +26,12 @@ const authSlice = createSlice({
         // Edit a profile photo in Local Storage when the photo is edited in a profile page
         setUserPhoto(state, action) {
             state.user.profilePhoto = action.payload
-        }
+        },
+
+        // Edit a username in Local Storage when the useranme is edited in a profile page
+        setUserName(state, action) {
+            state.user.username = action.payload
+        },
     }
 })
 const authReducer = authSlice.reducer

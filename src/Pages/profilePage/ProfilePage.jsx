@@ -16,7 +16,7 @@ const ProfilePage = () => {
     const [updateProfileModal, setUpdateProfileModal] = useState(false)
 
     const { profile } = useSelector(state => state.profile)
-    console.log(profile);
+    // console.log(profile);
     const dispatch = useDispatch()
     const { id } = useParams()
 
@@ -119,7 +119,7 @@ const ProfilePage = () => {
                 Delete Your Account
             </button>
             {
-                updateProfileModal && (<UpdateProfileModal setUpdateProfileModal={setUpdateProfileModal} />)
+                updateProfileModal && (<UpdateProfileModal profile={profile} setUpdateProfileModal={setUpdateProfileModal} />)
             }
         </section>
     )

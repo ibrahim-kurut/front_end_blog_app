@@ -1,23 +1,23 @@
 import { useState } from "react"
 import "./update-profile-model.css"
 import { toast } from "react-toastify"
-
-
-const user = {
-    username: "kenan kurut",
-    bio: "hello my name is kenan"
-}
+import { useDispatch } from "react-redux"
+import { updateProfileInfo } from "../../redux/apiCalls/profileApiCall"
 
 
 
 
 
-const UpdateProfileModal = ({ setUpdateProfileModal }) => {
 
-    const [username, setUsername] = useState(user.username)
-    const [bio, setBio] = useState(user.bio)
+
+
+const UpdateProfileModal = ({ setUpdateProfileModal, profile }) => {
+
+    const dispatch = useDispatch()
+
+    const [username, setUsername] = useState(profile.username)
+    const [bio, setBio] = useState(profile.bio)
     const [password, setPassword] = useState("")
-
 
     // form submit handler
     const handleSubmit = (e) => {
@@ -27,11 +27,16 @@ const UpdateProfileModal = ({ setUpdateProfileModal }) => {
         if (password.trim() !== "") {
             updatedUser.password = password
         }
-        //todo sent updatedUser to server and update the profile 
-        console.log('updated User', updatedUser);
+        // console.log('updated User', updatedUser);
+
+
+        // sent updatedUser to server and update the profile 
+        dispatch(updateProfileInfo(profile?._id, updatedUser))
+
         toast.success("Your Profile has been Updated Successfully!")
         setUpdateProfileModal(false)
-        // console.log(updatedUser);
+
+
     }
 
     return (

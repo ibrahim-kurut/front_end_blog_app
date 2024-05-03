@@ -51,3 +51,37 @@ export function uploadProfilePhoto(newPhoto) {
         }
     }
 }
+
+
+
+// Update Profile Info
+export function updateProfileInfo(userId, info) {
+    return async (dispatch, getState) => {
+        try {
+            const { data } = await request
+                .put(`/api/users/profile/${userId}`, info, {
+                    // The user can only change his info, provided that he is logged in
+                    headers: {
+                        Authorization: "Bearer " + getState().auth.user.token,
+                    }
+                });
+            // edit profile info in profile page
+            dispatch(profileActions.updateProfileInfo(data));
+
+            //! Edit a username in Local Storage when the user info is edited in a profile page
+            // edit user name
+            dispatch(authActions.setUserName(data.username))
+
+
+            // modify the username in local storage with new username
+            const user = JSON.parse(localStorage.getItem("userInfo")) // get user from localStorage
+            user.username = data?.username //  Update the user's username 
+
+            localStorage.setItem("userInfo", JSON.stringify(user)) // Save this changes we made in Local Storage
+
+        } catch (error) {
+            // console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
+}
