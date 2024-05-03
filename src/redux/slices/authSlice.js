@@ -21,6 +21,11 @@ const authSlice = createSlice({
         // ============ register ============
         registerUserHnadler(state, action) {
             state.registerMessage = action.payload;
+        },
+
+        // Edit a profile photo in Local Storage when the photo is edited in a profile page
+        setUserPhoto(state, action) {
+            state.user.profilePhoto = action.payload
         }
     }
 })

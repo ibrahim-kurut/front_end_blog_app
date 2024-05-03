@@ -7,7 +7,7 @@ import swal from "sweetalert"
 import UpdateProfileModal from "./UpdateProfileModal"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getUserProfile } from "../../redux/apiCalls/profileApiCall"
+import { getUserProfile, uploadProfilePhoto } from "../../redux/apiCalls/profileApiCall"
 
 const ProfilePage = () => {
 
@@ -24,11 +24,19 @@ const ProfilePage = () => {
         dispatch(getUserProfile(id))
         window.scrollTo(0, 0);
     }, [dispatch, id])
+
+
+
     // form submit handler
     const formSubmitHandle = (e) => {
         e.preventDefault()
         if (!file) return toast.warning(("Please select a photo"))
-        console.log("image uploaded");
+        // console.log("image uploaded");
+
+        const fd = new FormData()
+        fd.append('image', file)
+
+        dispatch(uploadProfilePhoto(fd))
     }
 
     // Delete Account Handler
