@@ -1,10 +1,21 @@
 import "./home.css"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PostList from "../../components/posts/PostList"
-import { posts, categories } from "../../dummyData"
+import { categories } from "../../dummyData"
 import Sidebar from "../../components/sidebar/Sidebar"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchPosts } from "../../redux/apiCalls/postApiCall"
 const HomePage = () => {
+
+    const dispatch = useDispatch()
+    const { posts } = useSelector(state => state.post)
+
+    useEffect(() => {
+        dispatch(fetchPosts(1))
+    }, [dispatch])
+
+
     return (
         <section className="home ">
             <div className="home-hero-header">
