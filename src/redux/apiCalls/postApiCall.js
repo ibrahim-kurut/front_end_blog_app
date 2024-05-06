@@ -29,3 +29,16 @@ export function getAllPosts() {
     }
 }
 
+
+// Get Posts Based On Count
+export function getPostsCount() {
+    return async (dispatch) => {
+        try {
+            const { data } = await request.get(`/api/posts/count`);
+            dispatch(postActions.setPostsCount(data))
+        } catch (error) {
+            // console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
+}
