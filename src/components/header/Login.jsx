@@ -81,7 +81,7 @@ const Login = ({ toggle, setToggle }) => {
             <div
                 onClick={() => setToggle(prev => !prev)}
                 className="header-menu">
-                {toggle ? <i class="bi bi-x-lg"></i> : <i className="bi bi-list"></i>}
+                {toggle ? <i className="bi bi-x-lg"></i> : <i className="bi bi-list"></i>}
 
             </div>
         </div>
