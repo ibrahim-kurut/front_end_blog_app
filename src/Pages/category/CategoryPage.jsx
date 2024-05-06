@@ -1,25 +1,34 @@
 import './category-page.css'
 import { useParams } from 'react-router-dom'
 import PostList from '../../components/posts/PostList'
-import { posts } from "../../dummyData"
+// import { posts } from "../../dummyData"
 import { useEffect } from 'react'
+
+
+import { useDispatch, useSelector } from 'react-redux'
+import { getPostsByCategory } from '../../redux/apiCalls/postApiCall'
+
 
 
 const CategoryPage = () => {
     const { category } = useParams()
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+    const dispatch = useDispatch()
+    const { postsCategory } = useSelector(state => state.post)
 
+
+    useEffect(() => {
+        dispatch(getPostsByCategory(category))
+        window.scrollTo(0, 0)
+    }, [dispatch, category])
 
 
     return (
         <section className="category">
             <h1 className="category-title">
-                posts based on {category}
+                {category} posts
             </h1>
-            <PostList posts={posts} />
+            <PostList posts={postsCategory} />
         </section>
     )
 }

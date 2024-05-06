@@ -10,4 +10,5 @@
     border-bottom: 2px solid var(--gray-color);
     font-size: 30px;
     width: max-content;
+    text-transform: capitalize;
 }
