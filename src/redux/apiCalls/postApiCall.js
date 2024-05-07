@@ -56,3 +56,28 @@ export function getPostsByCategory(category) {
         }
     }
 }
+
+// Create a new post
+export function createNewPost(newPost) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(postActions.addLoading())
+            await request.post(`/api/posts`, newPost, {
+                //* only logged in user can create post
+                headers: {
+                    Authorization: "Bearer " + getState().auth.user.token,
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            dispatch(postActions.createNewPostSuccess())
+
+            setTimeout(() => {
+                dispatch(postActions.resetIsPostCreated())
+            }, 2000);
+
+        } catch (error) {
+            toast.error(error.response.data.message)
+            dispatch(postActions.clearLoading())
+        }
+    }
+}

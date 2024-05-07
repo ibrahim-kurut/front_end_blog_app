@@ -1,9 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./creat-post.css"
 import { toast } from 'react-toastify';
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createNewPost } from "../../redux/apiCalls/postApiCall";
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 const CreatePost = () => {
 
+
+    const dispatch = useDispatch()
+    const { loading, isPostCreated } = useSelector(state => state.post)
 
 
 
@@ -35,32 +41,38 @@ const CreatePost = () => {
         if (!file) {
             return toast.error("the post image is required");
         }
-        setTimeout(() => {
-            toast.success("data sended successfully")
-            setTitle("")
-            setCategory("")
-            setDescription("")
-            setFile(null)
-        }, 1000);
+        // setTimeout(() => {
+        //     toast.success("data sended successfully")
+        //     setTitle("")
+        //     setCategory("")
+        //     setDescription("")
+        //     setFile(null)
+        // }, 1000);
 
 
 
         //!  Converting data taken from input  to objects to send them to the db
         const fd = new FormData()
-        fd.append("images", file)
+        fd.append("image", file)
         fd.append("title", title)
         fd.append("description", description)
         fd.append("category", category)
 
 
-        //todo send form date to server
+        //* send form date to server
+        dispatch(createNewPost(fd))
 
 
-
-        console.log({ title, category, description, file })
+        //console.log({ title, category, description, file })
 
 
     }
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (isPostCreated) {
+            navigate("/")
+        }
+    }, [isPostCreated, navigate])
 
 
     return (
@@ -106,7 +118,7 @@ const CreatePost = () => {
 
                 />
                 <button type="submit" className="create-post-btn capitalize">
-                    create post
+                    {loading ? <LoadingSpinner /> : "create post"}
                 </button>
             </form>
         </div>
