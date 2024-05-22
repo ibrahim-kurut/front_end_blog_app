@@ -2,7 +2,8 @@ import { useState } from "react"
 import "./comment-list.css"
 import swal from "sweetalert"
 import UpdateCommentModal from "./UpdateCommentModal"
-const CommentList = () => {
+
+const CommentList = ({ comments }) => {
     const [updateCommentModel, setUpdateCommentModel] = useState(false)
     // Delete Comment submit handler
 
@@ -27,26 +28,26 @@ const CommentList = () => {
             });
     }
 
-
+    console.log(comments);
     return (
 
         <div className="comment-list">
-            <h4 className="comment-list-count">2 comment</h4>
-            {[1, 2].map(comment => (
+            <h4 className="comment-list-count">{comments?.length} comment</h4>
+            {comments?.map(comment => (
                 <div
-                    key={comment}
+                    key={comment?._id}
                     className="comment-item"
                 >
                     <div className="comment-item-info">
                         <div className="comment-item-username">
-                            user name
+                            {comment?.username}
                         </div>
                         <div className="comment-item-time">
-                            2 hours ago
+                            {new Date(comment?.createdAt).toDateString()}
                         </div>
                     </div>
                     <p className="comment-item-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qu
+                        {comment?.comment}
                     </p>
                     <div className="comment-item-icon-wrapper">
                         <i

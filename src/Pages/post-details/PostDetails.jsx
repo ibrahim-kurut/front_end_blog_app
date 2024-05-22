@@ -121,7 +121,7 @@ const PostDetails = () => {
                 </div>
             </div>
             <AddComment />
-            <CommentList />
+            <CommentList comments={post?.comments} />
             {
                 updatePostModal && <UpdatePostModal setUpdatePostModal={setUpdatePostModal} post={post} />
             }
