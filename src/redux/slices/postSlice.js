@@ -7,7 +7,8 @@ const postSlice = createSlice({
         postsCount: null,
         postsCategory: [],
         loading: false,
-        isPostCreated: false
+        isPostCreated: false,
+        post: null // for get post details
     },
     reducers: {
         setPosts(state, action) {
@@ -33,6 +34,10 @@ const postSlice = createSlice({
         resetIsPostCreated(state) {
             state.isPostCreated = false
         },
+        //! get detali post
+        setPost(state, action) {
+            state.post = action.payload
+        }
     }
 })
 

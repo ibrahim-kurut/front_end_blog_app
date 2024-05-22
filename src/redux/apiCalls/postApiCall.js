@@ -81,3 +81,17 @@ export function createNewPost(newPost) {
         }
     }
 }
+
+
+// Get Single Post
+export function getSinglePost(postId) {
+    return async (dispatch) => {
+        try {
+            const { data } = await request.get(`/api/posts/${postId}`);
+            dispatch(postActions.setPost(data))
+        } catch (error) {
+            // console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
+}
