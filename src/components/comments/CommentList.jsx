@@ -2,7 +2,7 @@ import { useState } from "react"
 import "./comment-list.css"
 import swal from "sweetalert"
 import UpdateCommentModal from "./UpdateCommentModal"
-
+import Moment from 'react-moment'
 const CommentList = ({ comments }) => {
     const [updateCommentModel, setUpdateCommentModel] = useState(false)
     // Delete Comment submit handler
@@ -43,7 +43,9 @@ const CommentList = ({ comments }) => {
                             {comment?.username}
                         </div>
                         <div className="comment-item-time">
-                            {new Date(comment?.createdAt).toDateString()}
+                            <Moment fromNow ago>
+                                {comment?.createdAt}
+                            </Moment> ago
                         </div>
                     </div>
                     <p className="comment-item-text">
