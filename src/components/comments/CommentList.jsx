@@ -2,8 +2,10 @@ import { useState } from "react"
 import "./comment-list.css"
 import swal from "sweetalert"
 import UpdateCommentModal from "./UpdateCommentModal"
+import { useSelector } from "react-redux"
 import Moment from 'react-moment'
 const CommentList = ({ comments }) => {
+    const { user } = useSelector(state => state.auth) // the user who logged in
     const [updateCommentModel, setUpdateCommentModel] = useState(false)
     // Delete Comment submit handler
 
@@ -51,14 +53,19 @@ const CommentList = ({ comments }) => {
                     <p className="comment-item-text">
                         {comment?.comment}
                     </p>
-                    <div className="comment-item-icon-wrapper">
-                        <i
-                            onClick={() => setUpdateCommentModel(true)}
-                            className="bi bi-pencil-square"></i>
-                        <i
-                            onClick={deleteCommentHandler}
-                            className="bi bi-trash-fill"></i>
-                    </div>
+                    {
+                        user?._id === comment?.user && (
+                            <div className="comment-item-icon-wrapper">
+                                <i
+                                    onClick={() => setUpdateCommentModel(true)}
+                                    className="bi bi-pencil-square"></i>
+                                <i
+                                    onClick={deleteCommentHandler}
+                                    className="bi bi-trash-fill"></i>
+                            </div>
+                        )
+
+                    }
                 </div>
 
             ))}

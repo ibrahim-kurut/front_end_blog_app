@@ -15,6 +15,7 @@ const PostDetails = () => {
 
     const dispatch = useDispatch()
     const { post } = useSelector(state => state.post)
+    const { user } = useSelector(state => state.auth) // the user who logged in
 
 
 
@@ -71,23 +72,28 @@ const PostDetails = () => {
         <section className="post-details">
             <div className="post-details-image-wrapper">
                 <img src={file ? URL.createObjectURL(file) : post?.image.url} alt="" className="post-details-image" />
-                <form
-                    onSubmit={updateImageSubmitHandler}
-                    className="update-post-image-form">
-                    <label htmlFor="file" className="update-post-label">
-                        select new image
-                        <i className="bi bi-image-fill pl-2 text-xl"></i>
-                    </label>
-                    <input
-                        type="file"
-                        name="file"
-                        id="file"
-                        style={{ display: "none" }}
-                        onChange={(e) => setFile(e.target.files[0])}
+                {
+                    user?._id === post?.user?._id && (
+                        <form
+                            onSubmit={updateImageSubmitHandler}
+                            className="update-post-image-form">
+                            <label htmlFor="file" className="update-post-label">
+                                select new image
+                                <i className="bi bi-image-fill pl-2 text-xl"></i>
+                            </label>
+                            <input
+                                type="file"
+                                name="file"
+                                id="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile(e.target.files[0])}
 
-                    />
-                    <button type="submit">upload</button>
-                </form>
+                            />
+                            <button type="submit">upload</button>
+                        </form>
+                    )
+
+                }
             </div>
             <h1 className="post-details-title">
                 {post?.title}
@@ -108,17 +114,25 @@ const PostDetails = () => {
             </p>
             <div className="post-details-icon-wrapper">
                 <div>
-                    <i className="bi bi-hand-thumbs-up"></i>
+                    {
+                        user && (
+                            <i className="bi bi-hand-thumbs-up"></i>
+                        )
+                    }
                     <small>{post?.likes.length} likes</small>
                 </div>
-                <div>
-                    <i
-                        onClick={() => setUpdatePostModal(true)}
-                        className="bi bi-pencil-square"></i>
-                    <i
-                        onClick={deletePostHandler}
-                        className="bi bi-trash-fill"></i>
-                </div>
+                {
+                    user?._id === post?.user?._id && (
+                        <div>
+                            <i
+                                onClick={() => setUpdatePostModal(true)}
+                                className="bi bi-pencil-square"></i>
+                            <i
+                                onClick={deletePostHandler}
+                                className="bi bi-trash-fill"></i>
+                        </div>
+                    )
+                }
             </div>
             <AddComment />
             <CommentList comments={post?.comments} />
