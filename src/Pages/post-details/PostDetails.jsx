@@ -8,7 +8,7 @@ import CommentList from "../../components/comments/CommentList.jsx"
 import swal from "sweetalert"
 import UpdatePostModal from "./UpdatePostModal.jsx"
 import { useDispatch, useSelector } from "react-redux"
-import { getSinglePost } from "../../redux/apiCalls/postApiCall.js"
+import { getSinglePost, toggleLikePost } from "../../redux/apiCalls/postApiCall.js"
 
 const PostDetails = () => {
 
@@ -117,10 +117,19 @@ const PostDetails = () => {
                 <div>
                     {
                         user && (
-                            <i className="bi bi-hand-thumbs-up"></i>
+                            <i
+                                onClick={() => dispatch(toggleLikePost(post?._id))}
+                                className={
+                                    post?.likes?.includes(user?._id) ?
+                                        "bi bi-hand-thumbs-up-fill"
+                                        :
+                                        "bi bi-hand-thumbs-up"
+                                }>
+
+                            </i>
                         )
                     }
-                    <small>{post?.likes.length} likes</small>
+                    <small> {post?.likes.length} likes</small>
                 </div>
                 {
                     user?._id === post?.user?._id && (

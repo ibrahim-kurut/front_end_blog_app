@@ -95,3 +95,20 @@ export function getSinglePost(postId) {
         }
     }
 }
+// Toggle Like Post
+export function toggleLikePost(postId) {
+    return async (dispatch, getState) => {
+        try {
+            const { data } = await request.put(`/api/posts/like/${postId}`, {}, {
+                // only a logged in user can like this
+                headers: {
+                    Authorization: "Bearer " + getState().auth.user.token,
+                }
+            });
+            dispatch(postActions.setLike(data))
+        } catch (error) {
+            // console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
+}
