@@ -1,5 +1,5 @@
 import "./post-details.css"
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 // import { posts } from '../../dummyData.js'
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -102,8 +102,9 @@ const PostDetails = () => {
                 <img src={post?.user.profilePhoto?.url} alt="" className="post-details-user-image" />
                 <div className="post-details-user">
                     <strong>
-
-                        {post?.user.username}
+                        <Link to={`/profile/${post?.user._id}`}>
+                            {post?.user.username}
+                        </Link>
 
                     </strong>
                     <span>{new Date(post?.createdAt).toDateString()}</span>
