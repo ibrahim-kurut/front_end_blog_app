@@ -130,3 +130,21 @@ export function updatePost(newPost, postId) {
         }
     }
 }
+// Delete Post
+export function deletePostHandle(postId) {
+    return async (dispatch, getState) => {
+        try {
+            const { data } = await request.delete(`/api/posts/${postId}`, {
+                // only a logged in user can delete this post
+                headers: {
+                    Authorization: "Bearer " + getState().auth.user.token,
+                }
+            });
+            dispatch(postActions.deletePost(data.postId))
+            toast.success(data.message)
+        } catch (error) {
+            console.log(error);
+            // toast.error(error.response.data.message);
+        }
+    }
+}

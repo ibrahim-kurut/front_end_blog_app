@@ -41,6 +41,10 @@ const postSlice = createSlice({
         //! for make like
         setLike(state, action) {
             state.post.likes = action.payload.likes
+        },
+        //! delete post
+        deletePost(state, action) {
+            state.posts = state.posts.filter(post => post._id !== action.payload)
         }
     }
 })

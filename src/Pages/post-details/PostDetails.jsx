@@ -1,5 +1,5 @@
 import "./post-details.css"
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 // import { posts } from '../../dummyData.js'
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -8,7 +8,7 @@ import CommentList from "../../components/comments/CommentList.jsx"
 import swal from "sweetalert"
 import UpdatePostModal from "./UpdatePostModal.jsx"
 import { useDispatch, useSelector } from "react-redux"
-import { getSinglePost, toggleLikePost } from "../../redux/apiCalls/postApiCall.js"
+import { deletePostHandle, getSinglePost, toggleLikePost } from "../../redux/apiCalls/postApiCall.js"
 
 const PostDetails = () => {
 
@@ -44,6 +44,9 @@ const PostDetails = () => {
         }
     }
 
+    const navigate = useNavigate()
+
+
     // Delete post submit handler
 
     const deletePostHandler = () => {
@@ -54,15 +57,13 @@ const PostDetails = () => {
             buttons: true,
             dangerMode: true,
         })
-            .then((willDelete) => {
-                // console.log(willDelete);
-                if (willDelete) {
+            .then((isOk) => {
+                // console.log(isOk);
+                if (isOk) {
                     // delete  the post request here
-                    swal("Post has been deleted!", {
-                        icon: "success",
-                    });
-                } else {
-                    swal("Something went wrong!");
+                    dispatch(deletePostHandle(post?._id))
+                    toast.success("Your Post has been Deleted Successfully")
+                    navigate(`/profile/${user?._id}`)
                 }
             });
     }
