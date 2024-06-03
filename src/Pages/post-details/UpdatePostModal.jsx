@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
 import "./update-post-model.css"
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { updatePost } from '../../redux/apiCalls/postApiCall'
+
+
+
+
+
 
 const UpdatePostModal = ({ setUpdatePostModal, post }) => {
+
+    const dispatch = useDispatch()
+
+
+
 
     const [title, setTitle] = useState(post.title)
     const [description, setDescription] = useState(post.description)
@@ -29,20 +41,20 @@ const UpdatePostModal = ({ setUpdatePostModal, post }) => {
             return toast.error("the post description must not be less than 10 characters");
         }
 
-        setTimeout(() => {
-            toast.success("The post has been updated successfully")
-        }, 2000);
-
-
-
-
+        //  setTimeout(() => {
+        //      toast.success("The post has been updated successfully")
+        //  }, 2000);
 
 
         // @TODO -> send form date to server
 
+        // console.log({ title, category, description })
 
-
-        console.log({ title, category, description })
+        dispatch(updatePost({ title, category, description }, post?._id))
+        setTimeout(() => {
+            window.location.reload()
+        }, 100);
+        // setUpdatePostModal(false)
     }
 
     return (
