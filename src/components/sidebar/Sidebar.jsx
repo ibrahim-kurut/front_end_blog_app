@@ -1,24 +1,30 @@
 import "./sidebar.css"
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllCategory } from "../../redux/apiCalls/categoryApiCall";
 
-const Sidebar = ({ categories }) => {
+const Sidebar = () => {
 
+    const dispatch = useDispatch()
+    const { categories } = useSelector(state => state.category)
 
-    const uniqueCategoriess = [...new Set(categories)];
-
+    useEffect(() => {
+        dispatch(getAllCategory())
+    }, [dispatch])
 
     return (
         <div className="sidebar">
             <h5 className="sidebar-title">CATEGORIES</h5>
             <ul className="sidebar-links">
-                {uniqueCategoriess.map((category, i) => (
+                {categories.map((category) => (
                     <Link
-                        to={`/posts/categories/${category}`}
-                        key={i}
+                        to={`/posts/categories/${category.title}`}
+                        key={category?._id}
                         className="sidebar-link"
                     >
-                        {category}
+                        {category.title}
                     </Link>
                 ))}
             </ul>

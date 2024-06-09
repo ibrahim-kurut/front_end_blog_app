@@ -2,7 +2,7 @@ import "./home.css"
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PostList from "../../components/posts/PostList"
-// import { categories } from "../../dummyData"
+
 import Sidebar from "../../components/sidebar/Sidebar"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPosts } from "../../redux/apiCalls/postApiCall"
@@ -14,14 +14,6 @@ const HomePage = () => {
     useEffect(() => {
         dispatch(fetchPosts(1))
     }, [dispatch])
-
-    // console.log(posts);
-
-    const categories = posts.map((post) => {
-        return post.category
-    })
-
-    // console.log(categories);
 
     return (
         <section className="home ">
@@ -35,7 +27,7 @@ const HomePage = () => {
             <div className="home-latest-post">latest post</div>
             <div className="home-container">
                 <PostList posts={posts} />
-                <Sidebar categories={categories} />
+                <Sidebar />
 
 
             </div>

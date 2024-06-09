@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./update-post-model.css"
 import { toast } from 'react-toastify'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updatePost } from '../../redux/apiCalls/postApiCall'
+import { getAllCategory } from '../../redux/apiCalls/categoryApiCall'
 
 
 
@@ -12,8 +13,7 @@ import { updatePost } from '../../redux/apiCalls/postApiCall'
 const UpdatePostModal = ({ setUpdatePostModal, post }) => {
 
     const dispatch = useDispatch()
-
-
+    const { categories } = useSelector(state => state.category)
 
 
     const [title, setTitle] = useState(post.title)
@@ -57,6 +57,13 @@ const UpdatePostModal = ({ setUpdatePostModal, post }) => {
         // setUpdatePostModal(false)
     }
 
+
+
+    // get all category
+    useEffect(() => {
+        dispatch(getAllCategory())
+    }, [dispatch])
+
     return (
         <div className="update-post">
             <form onSubmit={formSubmitHandler} className="update-post-form">
@@ -80,8 +87,11 @@ const UpdatePostModal = ({ setUpdatePostModal, post }) => {
                     <option disabled value="">
                         Select Category
                     </option>
-                    <option value="music">music</option>
-                    <option value="coffee">coffee</option>
+                    {
+                        categories.map(category =>
+                            <option key={category?._id} value={category?.title}>{category?.title}</option>
+                        )
+                    }
                 </select>
                 <textarea
                     className="update-post-textarea"

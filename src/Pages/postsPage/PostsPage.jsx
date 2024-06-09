@@ -2,7 +2,7 @@ import "./posts-page.css"
 
 import PostList from "../../components/posts/PostList";
 import Sidebar from "../../components/sidebar/Sidebar";
-// import { categories } from "../../dummyData"
+
 import Pagination from "../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +18,6 @@ const PostsPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
 
     const pages = Math.ceil(postsCount / POST_PER_PAGE)
-
-    const categories = posts.map((post) => {
-        return post.category
-    })
 
     useEffect(() => {
         dispatch(fetchPosts(currentPage))
@@ -40,7 +36,7 @@ const PostsPage = () => {
         <>
             <section className="posts-page">
                 <PostList posts={posts} />
-                <Sidebar categories={categories} />
+                <Sidebar />
             </section>
             <Pagination
                 pages={pages}
