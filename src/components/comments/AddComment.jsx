@@ -1,19 +1,22 @@
 import "./add-comment.css"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { toast } from "react-toastify"
-const AddComment = () => {
-    const [comment, setComment] = useState("")
+import { createComment } from "../../redux/apiCalls/commentApiCall"
 
+const AddComment = ({ postId, user }) => {
+    const [comment, setComment] = useState("")
+    const dispatch = useDispatch()
 
     // form submit handler
     const formHandleSubmit = (e) => {
         e.preventDefault()
-        if (!comment || comment.trim() === "" || comment.length < 5) {
+        if (!comment || comment.trim() === "") {
             return toast.error("Please enter a valid comment!")
-        } else {
-            toast.success("Comment added successfully")
-
         }
+
+        dispatch(createComment({ comment, postId }))
+
         setTimeout(() => {
             setComment("")
         }, 1000);
@@ -29,7 +32,12 @@ const AddComment = () => {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
             />
-            <button className="add-comment-btn">Comment</button>
+            {
+                user ?
+                    <button className="add-comment-btn">Comment</button>
+                    :
+                    <p className="add-comment-btn">To add a comment, log in first</p>
+            }
         </form>
     )
 }

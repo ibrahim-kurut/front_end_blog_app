@@ -145,7 +145,7 @@ const PostDetails = () => {
                     )
                 }
             </div>
-            <AddComment />
+            <AddComment postId={post?._id} user={user} />
             <CommentList comments={post?.comments} />
             {
                 updatePostModal && <UpdatePostModal setUpdatePostModal={setUpdatePostModal} post={post} />
