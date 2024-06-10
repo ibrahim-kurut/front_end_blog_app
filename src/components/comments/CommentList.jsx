@@ -2,14 +2,21 @@ import { useState } from "react"
 import "./comment-list.css"
 import swal from "sweetalert"
 import UpdateCommentModal from "./UpdateCommentModal"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Moment from 'react-moment'
+import { deleteComment } from "../../redux/apiCalls/commentApiCall"
 const CommentList = ({ comments }) => {
     const { user } = useSelector(state => state.auth) // the user who logged in
     const [updateCommentModel, setUpdateCommentModel] = useState(false)
+
+
+    const dispatch = useDispatch()
+
+
+
     // Delete Comment submit handler
 
-    const deleteCommentHandler = () => {
+    const deleteCommentHandler = (commentId) => {
         swal({
             title: "Are you sure?",
             text: "Once you delete it, you will not be able to recover this comment!",
@@ -17,15 +24,11 @@ const CommentList = ({ comments }) => {
             buttons: true,
             dangerMode: true,
         })
-            .then((willDelete) => {
-                // console.log(willDelete);
-                if (willDelete) {
+            .then((isOk) => {
+                // console.log(isOk);
+                if (isOk) {
                     // delete  the Comment request here
-                    swal("Comment has been deleted!", {
-                        icon: "success",
-                    });
-                } else {
-                    swal("Something went wrong!");
+                    dispatch(deleteComment(commentId))
                 }
             });
     }
@@ -60,7 +63,7 @@ const CommentList = ({ comments }) => {
                                     onClick={() => setUpdateCommentModel(true)}
                                     className="bi bi-pencil-square"></i>
                                 <i
-                                    onClick={deleteCommentHandler}
+                                    onClick={() => deleteCommentHandler(comment?._id)}
                                     className="bi bi-trash-fill"></i>
                             </div>
                         )

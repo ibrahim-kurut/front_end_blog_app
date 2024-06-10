@@ -49,6 +49,15 @@ const postSlice = createSlice({
         //! add comment to post
         addCommentToPost(state, action) {
             state.post.comments.push(action.payload)
+        },
+        //! delete comment
+        deleteCommentFromPost(state, action) {
+            // get comment from comment array
+            const comment = state.post.comments.find(c => c._id === action.payload);
+            // get index of comment
+            const commentIndex = state.post.comments.indexOf(comment);
+            // delete comment by index
+            state.post.comments.splice(commentIndex, 1)
         }
     }
 })
