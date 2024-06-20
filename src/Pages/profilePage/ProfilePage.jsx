@@ -1,13 +1,14 @@
 import "./profile-page.css"
 import { useEffect, useState } from "react"
-import PostList from "../../components/posts/PostList"
-import { posts } from "../../dummyData"
+// import PostList from "../../components/posts/PostList"
+// import { posts } from "../../dummyData"
 import { toast } from "react-toastify"
 import swal from "sweetalert"
 import UpdateProfileModal from "./UpdateProfileModal"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getUserProfile, uploadProfilePhoto } from "../../redux/apiCalls/profileApiCall"
+import PostItem from "../../components/posts/PostItem"
 
 const ProfilePage = () => {
 
@@ -111,7 +112,19 @@ const ProfilePage = () => {
                 <h2 className="profile-posts-list-title">
                     {profile?.username} posts</h2>
 
-                <PostList posts={posts} />
+                {
+                    profile?.posts.map((post) => {
+                        return (
+                            <PostItem
+                                key={post._id}
+                                post={post}
+                                username={profile?.username}
+                                userId={profile?._id}
+                            />
+                        )
+                    })
+
+                }
             </div>
             <button
                 onClick={deleteAccountHandler}

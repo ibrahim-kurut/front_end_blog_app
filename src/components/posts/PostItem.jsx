@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom"
 import "./post.css"
-const PostItem = ({ post }) => {
+const PostItem = ({ post, username, userId }) => {
+
+    // create dynamic link
+    const profileLink = userId ? `/profile/${userId}` : `/profile/${post?.user?._id}`
+
+
     return (
         <div className="post-item">
             <div className="post-item-image-wrapper">
@@ -12,9 +17,9 @@ const PostItem = ({ post }) => {
                 <div className="post-item-info">
                     <div className="post-item-author">
                         <strong>Author: </strong>
-                        <Link to={`/profile/${post?.user?._id}
-`} >
-                            {post?.user.username}
+                        <Link to={profileLink} >
+                            {username ? username : post?.user?.username}
+
                         </Link>
                     </div>
                     <div className="post-item-date">
