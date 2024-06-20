@@ -17,6 +17,7 @@ const ProfilePage = () => {
     const [updateProfileModal, setUpdateProfileModal] = useState(false)
 
     const { profile } = useSelector(state => state.profile)
+    const { user } = useSelector(state => state.auth)
     // console.log(profile);
     const dispatch = useDispatch()
     const { id } = useParams()
@@ -67,27 +68,33 @@ const ProfilePage = () => {
             <div className="profile-header">
                 <div className="profile-image-wrapper">
                     <img src={file ? URL.createObjectURL(file) : profile?.profilePhoto.url} alt="" className="profile-image" />
-                    <form onSubmit={formSubmitHandle}>
-                        <abbr title="choose profile photo">
-                            <label
-                                htmlFor="file"
-                                className="bi bi-camera-fill upload-profile-photo-icon">
-                            </label>
-                        </abbr>
-                        <input
-                            style={{ display: "none" }}
-                            type="file"
-                            name="file"
-                            id="file"
-                            onChange={(e) => setFile(e.target.files[0])}
-                        />
-                        <button
-                            type="submit"
-                            className="upload-profile-photo-btn"
-                        >
-                            upload
-                        </button>
-                    </form>
+
+                    {/* if user loged in */}
+                    {
+                        user?._id === profile?._id && (
+                            <form onSubmit={formSubmitHandle}>
+                                <abbr title="choose profile photo">
+                                    <label
+                                        htmlFor="file"
+                                        className="bi bi-camera-fill upload-profile-photo-icon">
+                                    </label>
+                                </abbr>
+                                <input
+                                    style={{ display: "none" }}
+                                    type="file"
+                                    name="file"
+                                    id="file"
+                                    onChange={(e) => setFile(e.target.files[0])}
+                                />
+                                <button
+                                    type="submit"
+                                    className="upload-profile-photo-btn"
+                                >
+                                    upload
+                                </button>
+                            </form>
+                        )
+                    }
                 </div>
                 <h1 className="profile-username">
                     {profile?.username}
@@ -101,12 +108,16 @@ const ProfilePage = () => {
                         {new Date(profile?.updatedAt).toLocaleString()}
                     </span>
                 </div>
-                <button
-                    onClick={() => setUpdateProfileModal(true)}
-                    className="profile-update-btn">
-                    <i className="bi bi-file-person-fill"></i>
-                    Update Profile
-                </button>
+                {
+                    user?._id === profile?._id && (
+                        <button
+                            onClick={() => setUpdateProfileModal(true)}
+                            className="profile-update-btn">
+                            <i className="bi bi-file-person-fill"></i>
+                            Update Profile
+                        </button>
+                    )
+                }
             </div>
             <div className="profile-posts-list">
                 <h2 className="profile-posts-list-title">
@@ -126,11 +137,16 @@ const ProfilePage = () => {
 
                 }
             </div>
-            <button
-                onClick={deleteAccountHandler}
-                className="delete-account-btn">
-                Delete Your Account
-            </button>
+            {
+                user?._id === profile?._id && (
+                    <button
+                        onClick={deleteAccountHandler}
+                        className="delete-account-btn">
+                        Delete Your Account
+                    </button>
+                )
+
+            }
             {
                 updateProfileModal && (<UpdateProfileModal profile={profile} setUpdateProfileModal={setUpdateProfileModal} />)
             }
