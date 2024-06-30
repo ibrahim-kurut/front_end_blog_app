@@ -85,3 +85,33 @@ export function updateProfileInfo(userId, info) {
         }
     }
 }
+
+
+// Delete Profile (Account)
+export function deleteProfile(userId) {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(profileActions.setLoading())
+            const { data } = await request
+                .delete(`/api/users/profile/${userId}`, {
+                    // The user can only delete his information if he is logged in
+                    headers: {
+                        Authorization: "Bearer " + getState().auth.user.token,
+                    }
+                });
+            // edit profile info in profile page
+            dispatch(profileActions.setIsProfileDeleted());
+
+            toast.success(data?.message)
+
+            setTimeout(() => {
+                dispatch(profileActions.clearIsProfileDeleted())
+            }, 2000);
+
+        } catch (error) {
+            // console.log(error);
+            toast.error(error.response.data.message);
+            dispatch(profileActions.clearLoading())
+        }
+    }
+}
