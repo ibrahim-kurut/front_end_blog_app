@@ -2,12 +2,27 @@ import "./admin-tables.css"
 import AdminSidbar from './AdminSidbar'
 import swal from "sweetalert"
 
+
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { deleteCategory, getAllCategory } from "../../redux/apiCalls/categoryApiCall"
+
 const CategoriesTable = () => {
+
+
+    const dispatch = useDispatch()
+    const { categories } = useSelector(state => state.category)
+
+
+    useEffect(() => {
+        dispatch(getAllCategory())
+    }, [dispatch])
+    console.log(categories);
 
 
 
     // Delete category handler
-    const deleteCategoryHandler = () => {
+    const deleteCategoryHandler = (categoryId) => {
         swal({
             title: "Are you sure?",
             text: "you want to delete this category?",
@@ -15,15 +30,14 @@ const CategoriesTable = () => {
             buttons: true,
             dangerMode: true,
         })
-            .then((willDelete) => {
-                // console.log(willDelete);
-                if (willDelete) {
+            .then((isOk) => {
+                // console.log(isOk);
+                if (isOk) {
                     // delete the category request here
-                    swal("category has been deleted!", {
-                        icon: "success",
-                    });
-                } else {
-                    swal("Something went wrong!");
+                    // "category has been deleted!"
+                    dispatch(deleteCategory(categoryId))
+                    window.location.reload()
+
                 }
             });
     }
@@ -34,7 +48,7 @@ const CategoriesTable = () => {
         <section className="table-container">
             <AdminSidbar />
             <div className="table-wrapper">
-                <h1 className="table-title">categories </h1>
+                <h1 className="table-title">categories {categories?.length}</h1>
                 <table className="table">
                     <thead>
                         <tr>
@@ -45,12 +59,13 @@ const CategoriesTable = () => {
                     </thead>
                     <tbody>
                         {
-                            [1, 2, 3, 4].map((item) => {
+                            categories?.map((category, i) => {
                                 return (
-                                    <tr key={item}>
-                                        <td data-label="count">{item}</td>
+                                    <tr key={category?._id}>
+                                        <td data-label="count">{i + 1}</td>
                                         <td>
-                                            <b>music</b>
+                                            <b>{category?.title}</b>
+
                                         </td>
 
                                         <td>
@@ -58,7 +73,7 @@ const CategoriesTable = () => {
 
 
                                                 <button
-                                                    onClick={deleteCategoryHandler}
+                                                    onClick={() => deleteCategoryHandler(category?._id)}
                                                 >delete category</button>
                                             </div>
                                         </td>
