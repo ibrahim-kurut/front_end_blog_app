@@ -154,7 +154,7 @@ const ProfilePage = () => {
                     {profile?.username} posts</h2>
 
                 {
-                    profile?.posts.map((post) => {
+                    profile?.posts?.map((post) => {
                         return (
                             <PostItem
                                 key={post._id}

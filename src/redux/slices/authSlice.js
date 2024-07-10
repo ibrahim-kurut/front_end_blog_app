@@ -13,6 +13,7 @@ const authSlice = createSlice({
         // ============ login ============
         loginHandler(state, action) {
             state.user = action.payload;
+            state.registerMessage = null // When he logs in he doesn't return a message
         },
         // ============ logout ============
         logoutHandler(state) {
