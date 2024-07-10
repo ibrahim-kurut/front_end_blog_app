@@ -14,3 +14,21 @@ export function getAllCategory() {
         }
     }
 }
+
+// create a new category 
+export function createCategory(newCategory) {
+    return async (dispatch, getState) => {
+        try {
+            const { data } = await request.post(`/api/categories`, newCategory, {
+                headers: {
+                    Authorization: `Bearer ${getState().auth.user.token}`
+                }
+            })
+            dispatch(categoryActions.addCategory(data))
+            toast.success("category created successfully ")
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+    }
+}
+

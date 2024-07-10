@@ -1,9 +1,26 @@
 import { Link } from "react-router-dom"
 import AddCategoryForm from "./AddCategoryForm"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getAllCategory } from "../../redux/apiCalls/categoryApiCall"
 // import AddCategoryForm from "./AddCategoryForm"
 
 
+
 const AdminMain = () => {
+
+    const dispatch = useDispatch()
+    const { categories } = useSelector(state => state.category)
+
+
+    useEffect(() => {
+        dispatch(getAllCategory())
+    }, [dispatch])
+    // console.log(categories?.length);
+
+
+
+
     return (
         <div className="admin-main">
             <div className="admin-main-header">
@@ -41,7 +58,9 @@ const AdminMain = () => {
                 {/* categories card */}
                 <div className="admin-main-card">
                     <h5 className="admin-card-title">Categories</h5>
-                    <div className="admin-card-count">10</div>
+                    <div className="admin-card-count">
+                        {categories?.length}
+                    </div>
                     <div className="admin-card-link-wrapper">
                         <Link
                             className="admin-card-link"

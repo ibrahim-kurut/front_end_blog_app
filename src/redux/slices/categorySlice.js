@@ -9,7 +9,12 @@ const categorySlice = createSlice({
         // for fetch all gategory
         setCategories(state, action) {
             state.categories = action.payload
-        }
+        },
+        // add a new category
+        addCategory(state, action) {
+            state.categories.push(action.payload)
+        },
+
     }
 })
 const categoryReducer = categorySlice.reducer

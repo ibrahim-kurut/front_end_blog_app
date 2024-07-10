@@ -1,24 +1,33 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { toast } from "react-toastify"
+import { createCategory } from "../../redux/apiCalls/categoryApiCall"
+
+
 
 const AddCategoryForm = () => {
 
-    const [categoryTitle, setCategoryTitle] = useState("")
+    const [title, setTitle] = useState("")
+
+    const dispatch = useDispatch()
 
     // form submit handler
     const formSubmitHandler = (e) => {
         e.preventDefault()
 
-        if (!categoryTitle || categoryTitle.length < 3) {
+        if (!title || title.length < 3) {
             return toast.warning("Please write a title!")
-        } else {
-            toast.success("Category added successfully.")
-            setTimeout(() => {
-                setCategoryTitle("")
-            }, 1000);
-            console.log({ categoryTitle });
         }
+        // else {
+        //     toast.success("Category added successfully.")
+        //     setTimeout(() => {
+        //         setCategoryTitle("")
+        //     }, 1000);
+        //     console.log({ categoryTitle });
+        // }
 
+        dispatch(createCategory({ title }))
+        setTitle("")
 
     }
 
@@ -36,8 +45,8 @@ const AddCategoryForm = () => {
                         type="text"
                         id="title"
                         placeholder="enter category title"
-                        value={categoryTitle}
-                        onChange={(e) => setCategoryTitle(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                     <button
                         className="add-category-btn"
