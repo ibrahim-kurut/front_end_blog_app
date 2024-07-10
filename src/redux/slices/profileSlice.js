@@ -5,7 +5,9 @@ const profileSlice = createSlice({
     initialState: {
         profile: null,
         loading: false,
-        isProfileDeleted: false
+        isProfileDeleted: false,
+        usersCount: null,
+        profiles: [], // -->> for get all profile in user table in admin dashboard
     },
     reducers: {
         setProfile(state, action) {
@@ -32,7 +34,16 @@ const profileSlice = createSlice({
         },
         clearIsProfileDeleted(state) {
             state.isProfileDeleted = false
+        },
+        // =============== Get all profile in user table in admin dashboard ===============
+        setUsersCount(state, action) {
+            state.usersCount = action.payload
+        },
+        setProfiles(state, action) {
+            state.profiles = action.payload
         }
+
+
 
 
     }

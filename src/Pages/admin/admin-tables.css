@@ -2,7 +2,7 @@
     display: flex;
     height: calc(100vh - 130px);
     overflow: hidden;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .table-wrapper {
@@ -18,13 +18,14 @@
     border-bottom: 2px solid var(--secondary-color);
     padding-bottom: 3px;
     width: max-content;
+    text-transform: capitalize;
 }
 
 .table {
     width: 100%;
     text-align: left;
     border-collapse: collapse;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 th,

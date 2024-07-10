@@ -3,6 +3,7 @@ import AddCategoryForm from "./AddCategoryForm"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAllCategory } from "../../redux/apiCalls/categoryApiCall"
+import { getUsersCount } from "../../redux/apiCalls/profileApiCall"
 // import AddCategoryForm from "./AddCategoryForm"
 
 
@@ -11,12 +12,15 @@ const AdminMain = () => {
 
     const dispatch = useDispatch()
     const { categories } = useSelector(state => state.category)
+    const { usersCount } = useSelector(state => state.profile)
 
 
     useEffect(() => {
         dispatch(getAllCategory())
+        dispatch(getUsersCount())
     }, [dispatch])
     // console.log(categories?.length);
+    console.log("usersCount ", usersCount);
 
 
 
@@ -28,7 +32,7 @@ const AdminMain = () => {
                 {/* users card */}
                 <div className="admin-main-card">
                     <h5 className="admin-card-title">Users</h5>
-                    <div className="admin-card-count">120</div>
+                    <div className="admin-card-count">{usersCount}</div>
                     <div className="admin-card-link-wrapper">
                         <Link
                             className="admin-card-link"
